@@ -1,57 +1,57 @@
 <div class="container mt-5">
-    @if (customers | async; as listCustomers) {
-        <div class="card">
-            <div class="card-header">Customers</div>
-            <div class="card-body">
-                @if (searchFormGroup) {
-                    <form [formGroup]="searchFormGroup" (ngSubmit)="handleSearchCustomers()">
-                        <div class="input-group mb-3">
-                            <label class="input-group-text">Keyword :</label>
-                            <input type="text" formControlName="keyword" class="form-control">
-                            <button class="btn btn-info" type="submit">
-                                <i class="bi bi-search"></i>
-                                Search
-                            </button>
-                        </div>
-                    </form>
-                }
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>ID</th><th>Name</th><th>Email</th><th>Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        @for (c of listCustomers; track c.id) {
-                            <tr>
-                                <td>{{c.id}}</td>
-                                <td>{{c.name}}</td>
-                                <td>{{c.email}}</td>
-                                <td>
-                                    <button (click)="handleDeleteCustomer(c)" class="btn btn-danger me-1">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                    <button (click)="handleCustomerAccounts(c)" class="btn btn-success">
-                                        Accounts
-                                    </button>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+  @if (customers | async; as listCustomers) {
+    <div class="card">
+      <div class="card-header">Customers</div>
+      <div class="card-body">
+        @if (searchFormGroup) {
+          <form [formGroup]="searchFormGroup" (ngSubmit)="handleSearchCustomers()">
+            <div class="input-group mb-3">
+              <label class="input-group-text">Keyword :</label>
+              <input type="text" formControlName="keyword" class="form-control">
+              <button class="btn btn-info" type="submit">
+                <i class="bi bi-search"></i>
+                Search
+              </button> 
             </div>
-        </div>
-    } @else {
-        @if (errorMessage) {
-            <div class="text-danger mt-3">
-                {{ errorMessage }}
-            </div>
-        } @else {
-            <div class="d-flex justify-content-center align-items-center min-vh-100">
-                <div class="spinner-border text-info" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                </div>
-            </div>
+          </form>
         }
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th><th>Name</th><th>Email</th><th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (c of listCustomers; track c.id) {
+              <tr>
+                <td>{{c.id}}</td>
+                <td>{{c.name}}</td>
+                <td>{{c.email}}</td>
+                <td>
+                  <button (click)="handleDeleteCustomer(c)" class="btn btn-danger me-1">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                  <button (click)="handleCustomerAccounts(c)" class="btn btn-success">
+                    Accounts
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  } @else {
+    @if (errorMessage) {
+      <div class="text-danger mt-3">
+        {{ errorMessage }}
+      </div>
+    } @else {
+    <div class="d-flex justify-content-center align-items-center min-vh-100">
+        <div class="spinner-border text-info" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
     }
+  }
 </div>

@@ -16,7 +16,7 @@
               </div>
             </form>
           }
-          @if (accountObservable | async; as accountDetails) {
+            @if (accountObservable | async; as accountDetails) {
             <div class="my-2">
               <label>Account ID :</label>
               <label><strong>{{accountDetails.accountId}}</strong></label>
@@ -27,7 +27,7 @@
             </div>
             <table class="table">
               <thead>
-              <th>ID</th><th>Date</th><th>Type</th><th>Amount</th>
+                <th>ID</th><th>Date</th><th>Type</th><th>Amount</th>
               </thead>
               <tbody>
                 @for (op of accountDetails.accountOperationDTOS; track op.id) {
@@ -41,10 +41,10 @@
               </tbody>
             </table>
             <ul class="nav nav-pills">
-              @for (page of [].constructor(accountDetails.totalPages); let i = $index; track i) {
+               @for (page of [].constructor(accountDetails.totalPages); let i = $index; track i) {
                 <li>
-                  <a [ngClass]="i==currentPage ? 'btn-info' : 'btn-outline-info'"
-                     (click)="gotoPage(i)"
+                  <a [ngClass]="i==currentPage ? 'btn-info' : 'btn-outline-info'" 
+                     (click)="gotoPage(i)" 
                      class="btn ms-1 mt-1">
                     {{i + 1}}
                   </a>
@@ -57,6 +57,7 @@
         </div>
       </div>
     </div>
+    @if (authService.roles.includes('ADMIN')) {
     <div class="col col-md-6">
       @if (accountObservable) {
         <div class="card">
@@ -99,5 +100,6 @@
         </div>
       }
     </div>
+  }
   </div>
 </div>

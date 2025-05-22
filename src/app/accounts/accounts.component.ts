@@ -4,6 +4,7 @@ import { catchError, Observable, throwError } from 'rxjs';
 import { AccountDetails } from '../models/account.model';
 import { AccountService } from '../services/account.service';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../services/auth.service';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class AccountsComponent implements OnInit {
   operationFromGroup!: FormGroup;
   errorMessage!: string ;
 
-  constructor(private fb : FormBuilder, private accountService : AccountService) { }
+  constructor(private fb : FormBuilder, private accountService : AccountService, public authService: AuthService) { }
 
   ngOnInit(): void {
     this.accountFormGroup = this.fb.group({
@@ -33,7 +34,7 @@ export class AccountsComponent implements OnInit {
       description: this.fb.control(null),
       accountDestination: this.fb.control(null)
     })
-  }
+    }
 
   handleSearchAccount() {
     let accountId : string = this.accountFormGroup.value.accountId;
@@ -59,7 +60,7 @@ export class AccountsComponent implements OnInit {
 
     if(operationType=='DEBIT'){
       this.accountService.debit(accountId, amount, description).subscribe({
-        next : (data) =>{
+        next : (data) =>{ 
           alert("Success Credit");
           this.operationFromGroup.reset();
           this.handleSearchAccount();

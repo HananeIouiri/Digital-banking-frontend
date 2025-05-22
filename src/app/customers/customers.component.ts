@@ -31,10 +31,10 @@ export class CustomersComponent implements OnInit {
   handleSearchCustomers() {
     let kw = this.searchFormGroup?.value.keyword;
     this.customers = this.customerService.searchCustomers(kw).pipe(
-        catchError(err => {
-          this.errorMessage=err.message;
-          return throwError(() => err);
-        })
+      catchError(err => {
+        this.errorMessage=err.message;
+        return throwError(() => err);
+      })
     );
   }
 
@@ -44,11 +44,11 @@ export class CustomersComponent implements OnInit {
     this.customerService.deleteCustomer(c.id).subscribe({
       next : (resp) => {
         this.customers=this.customers.pipe(
-            map(data =>{
-              let index = data.indexOf(c);
-              data.slice(index, 1)
-              return data;
-            })
+          map(data =>{
+            let index = data.indexOf(c);
+            data.slice(index, 1)
+            return data;
+          })
         );
       },
       error : err => {
